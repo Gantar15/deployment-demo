@@ -1,2 +1,0 @@
-[demo]
-demo_host1 ansible_host=192.168.100.2 ansible_connection=ssh ansible_user=vm-admin ansible_port=2222
