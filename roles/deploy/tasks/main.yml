@@ -1,0 +1,5 @@
+- name: Demo
+  ansible.builtin.command: echo "DEMO ROLE"
+  register: myoutput
+  changed_when: myoutput.rc != 0
+  failed_when: myoutput.rc != 0
