@@ -1,7 +1,22 @@
 - name: Deploy task
-  # ansible.builtin.command: "echo {{ test }}"
-  # register: result
-  # changed_when: "'0' not in result.stdout"
+
+  # ansible.builtin.debug:
+  #   msg: "{{ my_var | default(54) }}"
+
+  # file:
+  #   dest: "{{ item.path }}"
+  #   state: touch
+  #   mode: "{{ item.mode | default(omit) }}"
+  # loop:
+  #   - path: "/test1"
+  #   - path: "/test2"
+  #   - mode: "0666"
+
+  vars:
+    admin:
+      - keyN: a
+        valueN: 1
+      - keyN: b
+        valueN: 2
   ansible.builtin.debug:
-    # msg: "{{ lookup('file', '../meta/main.yml', errors: 'warn') }}"
-    msg: "{{ lookup('vars', 'test') }}"
+    msg: "{{ admin | items2dict(key_name='keyN', value_name='valueN') }}"

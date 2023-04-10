@@ -1,4 +1,19 @@
 - name: Deploy server
   hosts: deploy
   roles:
-    - deploy
+    - role: pre_config
+      tags: pre_config
+    - role: deploy
+      test: '0'
+      tags: deploy
+    # - name: deploy
+    #   message: sad
+    # - name: deploy
+    #   message: das
+
+- name: Managers
+  hosts: managers
+  roles:
+    - role: pre_config
+      tags: pre_config
+    # - joinswarm
