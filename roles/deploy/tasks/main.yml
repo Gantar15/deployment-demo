@@ -1,5 +1,7 @@
-- name: Demo
-  ansible.builtin.command: echo "DEMO ROLE"
-  register: myoutput
-  changed_when: myoutput.rc != 0
-  failed_when: myoutput.rc != 0
+- name: Deploy task
+  # ansible.builtin.command: "echo {{ test }}"
+  # register: result
+  # changed_when: "'0' not in result.stdout"
+  ansible.builtin.debug:
+    # msg: "{{ lookup('file', '../meta/main.yml', errors: 'warn') }}"
+    msg: "{{ lookup('vars', 'test') }}"

@@ -1,9 +1,4 @@
-- name: All configs
-  hosts: cluster
+- name: Deploy server
+  hosts: deploy
   roles:
-    - pre_config
     - deploy
-    # - name: deploy
-    #   message: sad
-    # - name: deploy
-    #   message: das
