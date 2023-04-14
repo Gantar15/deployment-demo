@@ -1,22 +1,12 @@
-- name: Deploy task
+- name: Creating network
+  community.docker.docker_network:
+    name: "{{ network_name }}"
+    driver: overlay
 
-  # ansible.builtin.debug:
-  #   msg: "{{ my_var | default(54) }}"
-
-  # file:
-  #   dest: "{{ item.path }}"
-  #   state: touch
-  #   mode: "{{ item.mode | default(omit) }}"
-  # loop:
-  #   - path: "/test1"
-  #   - path: "/test2"
-  #   - mode: "0666"
-
+- name: Services deployment
+  ansible.builtin.include_tasks:
+    file: "../services/{{ item.name }}/service.yml"
   vars:
-    admin:
-      - keyN: a
-        valueN: 1
-      - keyN: b
-        valueN: 2
-  ansible.builtin.debug:
-    msg: "{{ admin | items2dict(key_name='keyN', value_name='valueN') }}"
+    name: "{{ item.name }}"
+    version: "{{ item.version }}"
+  loop: "{{ services }}"
