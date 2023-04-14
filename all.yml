@@ -3,10 +3,10 @@
   roles:
     - role: pre_config
       tags: pre_config
-    - role: deploy
-      tags: deploy
     - role: build
       tags: build
+    - role: deploy
+      tags: deploy
     # - swarm_init
 
 - name: Managers

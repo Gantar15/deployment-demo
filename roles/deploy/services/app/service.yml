@@ -3,12 +3,14 @@
   - name: "[{{ name }}] Posting the service"
     community.docker.docker_swarm_service:
       name: "{{ name }}"
-      image: "rabbitmq:3-management"
+      image: "{{ registry_name }}/{{ name }}:{{ version }}"
       state: present
       networks:
         - "{{ networkName }}"
-      env:
-        - RABBITMQ_DEFAULT_USER={{ rmq.user }}
-        - RABBITMQ_DEFAULT_PASS=admin={{ rmq.password }}
+      publish:
+        - mode: ingress
+          protocol: tcp
+          target_port: 80
+          published_port: 3001
   tags:
     - "{{ name }}"

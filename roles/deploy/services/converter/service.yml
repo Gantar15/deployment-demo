@@ -1,14 +1,17 @@
+- name: "[{{ name }}] Secret configuration"
+  ansible.builtin.include_tasks: "../secret.yml"
+
 - name: "[{{ name }}] Post the service"
   block:
   - name: "[{{ name }}] Posting the service"
     community.docker.docker_swarm_service:
       name: "{{ name }}"
-      image: "rabbitmq:3-management"
+      image: "{{ registry_name }}/{{ name }}:{{ version }}"
       state: present
       networks:
         - "{{ networkName }}"
-      env:
-        - RABBITMQ_DEFAULT_USER={{ rmq.user }}
-        - RABBITMQ_DEFAULT_PASS=admin={{ rmq.password }}
+      secrets:
+        - secret_name: "{{ name }}.env"
+          filename: "opt/app/.env"
   tags:
     - "{{ name }}"
