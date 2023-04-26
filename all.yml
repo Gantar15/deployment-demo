@@ -18,11 +18,3 @@
     - role: swarm_join
       type: manager
       tags: swarm_join
-  post_tasks:
-    - name: Clear tokens folder
-      ansible.builtin.file:
-        path: ./tokens
-        state: absent
-      delegate_to: localhost
-      ignore_errors: true
-      tags: swarm_join
