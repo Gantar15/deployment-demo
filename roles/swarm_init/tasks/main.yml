@@ -10,7 +10,6 @@
     state: directory
     mode: '0644'
   delegate_to: localhost
-  notify: Test
 
 - name: Save manager token
   ansible.builtin.copy:
