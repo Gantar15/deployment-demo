@@ -5,22 +5,22 @@
   register: token
 
 - name: Folder exists
-  local_action:
-    module: ansible.builtin.file
+  ansible.builtin.file:
     path: ./tokens
     state: directory
     mode: '777'
+  delegate_to: localhost
 
 - name: Save manager token
-  local_action:
-    module: ansible.builtin.copy
+  ansible.builtin.copy:
     dest: ./tokens/token-manager
     content: "{{ token.swarm_facts.JoinToken.Manager }}"
     mode: '777'
+  delegate_to: localhost
 
 - name: Save worker token
-  local_action:
-    module: ansible.builtin.copy
+  ansible.builtin.copy:
     dest: ./tokens/token-worker
     content: "{{ token.swarm_facts.JoinToken.Worker }}"
     mode: '777'
+  delegate_to: localhost
