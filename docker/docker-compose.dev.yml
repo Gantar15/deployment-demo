@@ -1,0 +1,6 @@
+version: "3"
+
+services:
+  rmq:
+    ports:
+      - 1253:1101

@@ -1,0 +1,18 @@
+- name: "[{{ name }}] Secret configuration"
+  ansible.builtin.include_tasks: "../secret.yml"
+
+- name: "[{{ name }}] Post the service"
+  block:
+  - name: "[{{ name }}] Posting the service"
+    community.docker.docker_swarm_service:
+      name: "{{ name }}"
+      image: "{{ registry_name }}/{{ name }}:{{ version }}"
+      state: present
+      force_update: true
+      networks:
+        - "{{ network_name }}"
+      secrets:
+        - secret_name: "{{ name }}.env"
+          filename: "opt/app/.env"
+  tags:
+    - "{{ name }}"

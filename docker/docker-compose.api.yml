@@ -1,0 +1,18 @@
+version: "3"
+
+services:
+  api:
+    # environment:
+    #   - CONTAINER_NAME=api
+    build:
+      context: .
+      dockerfile: ./apps/api/Dockerfile
+    restart: always
+    container_name: "${CONTAINER_NAME}"
+    volumes:
+      - ./.env:/opt/app/.env
+    networks:
+      - myNetwork
+    ports:
+      - 3002:3000
+    profiles: ["backend"]
