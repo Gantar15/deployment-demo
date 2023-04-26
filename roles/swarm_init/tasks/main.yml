@@ -1,0 +1,26 @@
+- name: Init swarm
+  community.docker.docker_swarm:
+    state: present
+    advertise_addr: "{{ advertise_addr }}"
+  register: token
+
+- name: Folder exists
+  local_action:
+    module: ansible.builtin.file
+    path: ./tokens
+    state: directory
+    mode: '777'
+
+- name: Save manager token
+  local_action:
+    module: ansible.builtin.copy
+    dest: ./tokens/token-manager
+    content: "{{ token.swarm_facts.JoinToken.Manager }}"
+    mode: '777'
+
+- name: Save worker token
+  local_action:
+    module: ansible.builtin.copy
+    dest: ./tokens/token-worker
+    content: "{{ token.swarm_facts.JoinToken.Worker }}"
+    mode: '777'

@@ -12,18 +12,24 @@ registry_name: localhost:5000
 
 services:
   - name: rmq
-    version: latest
+    version: 3-management
   - name: app
     version: latest
   - name: api
     version: latest
   - name: converter
     version: latest
+  - name: nginx
+    version: latest
 
 non_build_services:
   - name: rmq
+    version: 3-management
+  - name: nginx
     version: latest
 
 configs:
   converter:
     queue: q_imageProcessor
+
+advertise_addr: 10.11.10.1

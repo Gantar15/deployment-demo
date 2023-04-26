@@ -1,17 +1,26 @@
+- name: "[{{ name }}] Config configuration"
+  ansible.builtin.include_tasks: "../config.yml"
+  loop:
+    - nginx.conf
+  loop_control:
+    loop_var: config_item
+
 - name: "[{{ name }}] Post the service"
   block:
   - name: "[{{ name }}] Posting the service"
     community.docker.docker_swarm_service:
       name: "{{ name }}"
-      image: "{{ registry_name }}/{{ name }}:{{ version }}"
+      image: "ngnx:{{ version }}"
       state: present
-      force_update: true
       networks:
         - "{{ network_name }}"
       publish:
         - mode: ingress
           protocol: tcp
           target_port: 80
-          published_port: 3001
+          published_port: 80
+      configs:
+        - config_name: nginx.conf
+          filename: "/etc/nginx/nginx.conf"
   tags:
     - "{{ name }}"

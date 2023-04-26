@@ -3,10 +3,10 @@
   - name: "[{{ name }}] Posting the service"
     community.docker.docker_swarm_service:
       name: "{{ name }}"
-      image: "rabbitmq:3-management"
+      image: "rabbitmq:{{ version }}"
       state: present
       networks:
-        - "{{ networkName }}"
+        - "{{ network_name }}"
       env:
         - RABBITMQ_DEFAULT_USER={{ rmq.user }}
         - RABBITMQ_DEFAULT_PASS=admin={{ rmq.password }}

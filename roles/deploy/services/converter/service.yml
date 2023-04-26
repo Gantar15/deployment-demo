@@ -8,8 +8,9 @@
       name: "{{ name }}"
       image: "{{ registry_name }}/{{ name }}:{{ version }}"
       state: present
+      force_update: true
       networks:
-        - "{{ networkName }}"
+        - "{{ network_name }}"
       secrets:
         - secret_name: "{{ name }}.env"
           filename: "opt/app/.env"
